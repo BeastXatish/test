@@ -1,0 +1,32 @@
+<aura:component access="global">    
+    <aura:attribute name="partnerData" type="List"/>
+
+    <aura:attribute name="displaySpinner" type="Boolean" default="false"/>
+
+    <lightning:card class="slds-card slds-m-around_xsmall slds-is-relative">
+        <aura:if isTrue="{!v.displaySpinner}">
+            <lightning:spinner aura:id="displaySpinner" class="slds-spinner_brand"/>
+        </aura:if>
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer table-fixed-layout">
+            <thead>
+                <tr class="table-head slds-grid--vertical-stretch">
+                    <th scope="col">Partner Function</th>
+                    <th scope="col">Partner Function Name</th>
+                    <th scope="col">Partner Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.partnerData}" var="prtData">
+                    <!--<aura:if isTrue="{!prtData.PartnerFunction != 'Z3'}">-->
+                        <tr>
+                            <td><lightning:formattedText value="{!prtData.PartnerFunction}"/></td>
+                            <td><lightning:formattedText value="{!prtData.PartnerFunctionName}"/></td>
+                            <td><lightning:formattedText value="{!prtData.PartnerNumber}"/></td>
+                        </tr>
+                    <!--</aura:if>-->
+                </aura:iteration>
+            </tbody>
+        </table>
+
+    </lightning:card>
+</aura:component>

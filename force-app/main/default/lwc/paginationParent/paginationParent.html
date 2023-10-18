@@ -1,0 +1,25 @@
+<template>
+    <lightning-card title="Showing Pagination Data">
+        
+            <!-- {column}
+            {visiblerecords}
+                <template if:true={showtable}>
+                    <lightning-datatable
+                    data= {visiblerecords}
+                    columns= {column}
+                    key-field="id"
+                    >
+
+                    </lightning-datatable> -->
+                     <template for:each={visiblerecords} for:item="accdata">
+                        <p key={accdata.Id}>
+                            {accdata.Name}
+                        </p>
+                    </template>
+              
+                <div slot="footer" class="slds-var-m-vertical_medium">
+                    <c-pagination-child records ={mainData} onupdate ={updateHandler}></c-pagination-child>
+                </div>
+        
+    </lightning-card>
+</template>

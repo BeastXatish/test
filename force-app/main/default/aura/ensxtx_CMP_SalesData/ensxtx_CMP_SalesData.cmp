@@ -1,0 +1,250 @@
+<aura:component access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:attribute name="fieldSettings" type="Map"/>
+    <aura:attribute name="appSettings" type="Map"/>
+    <aura:attribute name="salesData" type="Map"/>
+    <aura:attribute name="salesAreas" type="List"/>
+    <aura:attribute name="salesOrganizations" type="List" access="private"/>
+    <aura:attribute name="distributionChannels" type="List" access="private"/>
+    <aura:attribute name="divisions" type="List" access="private"/>
+    <aura:attribute name="groupOffice" type="Map"/>
+    <aura:attribute name="salesGroups" type="List" access="private"/>
+    <aura:attribute name="salesOffices" type="List" access="private"/>
+    <aura:attribute name="salesDistricts" type="List" access="private"/>
+    <aura:attribute name="shipInfo" type="Map"/>
+    <aura:attribute name="incoTerms" type="List" access="private"/>
+    <aura:attribute name="paymentTerms" type="List" access="private"/>
+    <aura:attribute name="shippingConditions" type="List" access="private"/>
+    <aura:attribute name="pricingStat" type="Map"/>
+    <aura:attribute name="priceGroups" type="List" access="private"/>
+    <aura:attribute name="pricingProcedures" type="List" access="private"/>
+    <aura:attribute name="priceLists" type="List" access="private"/>
+    <aura:attribute name="currencies" type="List"/>
+    <aura:attribute name="custGroups" type="List"/>
+    <aura:attribute name="delPrios" type="List"/>
+    <aura:attribute name="delPlants" type="List"/>
+    <aura:registerEvent name="salesAreaChange" type="c:ensxtx_EVT_SalesAreaChange"/>
+
+
+    <aura:attribute name="displaySpinner" type="Boolean" default="false"/>
+
+    <lightning:card>
+        <aura:if isTrue="{!v.displaySpinner}">
+            <lightning:spinner aura:id="displaySpinner" class="slds-spinner_brand"/>
+        </aura:if>
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-border_right">
+                <aura:if isTrue="{! v.fieldSettings.SalesOrganization.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_SalesOrganization}" disabled="{!!v.fieldSettings.SalesOrganization.edit}" value="{!v.salesData.SalesOrganization}" name="salesOrg"
+                            onchange="{!c.onSalesAreaChange}" required="{!v.fieldSettings.SalesOrganization.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.salesOrganizations}" var="salesOrg">
+                                <option selected="{!v.salesData.SalesOrganization == salesOrg.SalesOrganization}" value="{!salesOrg.SalesOrganization}">{!salesOrg.SalesOrganization + ' - ' + salesOrg.SalesOrganizationName}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.SalesDistrict.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_SalesDistrict}" disabled="{!!v.fieldSettings.SalesDistrict.edit}" value="{!v.salesData.SalesDistrict}" name="salesDistrict"
+                            required="{!v.fieldSettings.SalesDistrict.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.salesDistricts}" var="sd">
+                                <option value="{!sd.BZIRK}">{!sd.BZIRK + ' - ' + sd.BZTXT}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.SalesOffice.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_SalesOffice}" value="{!v.salesData.SalesOffice}" name="salesOffice"
+                            required="{!v.fieldSettings.SalesOffice.required}" disabled="{!!v.fieldSettings.SalesOffice.edit}" onchange="{!c.onSalesOfficeChange}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.salesOffices}" var="so">
+                                <option value="{!so.VKBUR}">{!so.VKBUR + ' - ' + so.BEZEI}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.SalesGroup.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_SalesGroup}" disabled="{!!v.fieldSettings.SalesGroup.edit}" value="{!v.salesData.SalesGroup}" name="salesGroup"
+                            required="{!v.fieldSettings.SalesGroup.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.salesGroups}" var="sg">
+                                <option value="{!sg.SalesGroup}">{!sg.SalesGroup + ' - ' + sg.BEZEI}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.CustomerGroup.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_CustomerGroup}" disabled="{!!v.fieldSettings.CustomerGroup.edit}" value="{!v.salesData.CustomerGroup}" name="customerGroup"
+                            required="{!v.fieldSettings.CustomerGroup.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.custGroups}" var="cg">
+                                <option value="{!cg.KDGRP}">{!cg.KDGRP + ' - ' + cg.KTEXT}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.ABCClass.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_ABCClass}" readonly="{!! v.fieldSettings.ABCClass.edit}"
+                            value="{!v.salesData.ABCClass}" required="{!v.fieldSettings.ABCClass.required}"/>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.PriceGroup.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_PriceGroup}" disabled="{!!v.fieldSettings.PriceGroup.edit}" value="{!v.salesData.PriceGroup}"
+                            required="{!v.fieldSettings.PriceGroup.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.priceGroups}" var="pg">
+                                <option selected="{!v.salesData.PriceGroup == pg.KONDA}" value="{!pg.KONDA}">{!pg.KONDA + ' - ' + pg.VTEXT}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.CurrencyKey.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <aura:if isTrue="{! v.fieldSettings.CurrencyKey.edit}">
+                            <lightning:select label="{!$Label.c.Enosix_Customer_Field_CurrencyKey}" value="{!v.salesData.CurrencyKey}"
+                                required="{!v.fieldSettings.CurrencyKey.required}">
+                                <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                                <aura:iteration items="{!v.currencies}" var="curr">
+                                    <option selected="{!v.salesData.CurrencyKey == curr.INCO1}" value="{!curr.FieldCurrency}">{!curr.FieldCurrency + ' - ' + curr.KTEXT}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                            <aura:set attribute="else">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_CurrencyKey}" readonly="true"
+                                    value="{!v.salesData.CurrencyKey}" required="{!v.fieldSettings.CurrencyKey.required}"/>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.PricingProcedure.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <aura:if isTrue="{! v.fieldSettings.PricingProcedure.edit}">
+                            <lightning:select label="{!$Label.c.Enosix_Customer_Field_PricingProcedure}" value="{!v.salesData.CustomerPricingProcedure}"
+                                required="{!v.fieldSettings.PricingProcedure.required}">
+                                <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                                <aura:iteration items="{!v.pricingProcedures}" var="pp">
+                                    <option selected="{!v.salesData.CustomerPricingProcedure == pp.KALKS}" value="{!pp.KALKS}">{!pp.KALKS + ' - ' + pp.VTEXT}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                            <aura:set attribute="else">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_PricingProcedure}" readonly="true"
+                                    value="{!v.salesData.CustomerPricingProcedure}" required="{!v.fieldSettings.PricingProcedure.required}"/>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.PriceList.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <aura:if isTrue="{! v.fieldSettings.PriceList.edit}">
+                            <lightning:select label="{!$Label.c.Enosix_Customer_Field_PriceList}" value="{!v.salesData.PriceListType}"
+                                required="{!v.fieldSettings.PriceList.required}">
+                                <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                                <aura:iteration items="{!v.priceLists}" var="pl">
+                                    <option selected="{!v.salesData.PriceList == pl.PLTYP}" value="{!pl.PLTYP}">{!pl.PLTYP + ' - ' + pl.PTEXT}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                            <aura:set attribute="else">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_PriceList}" readonly="true"
+                                    value="{!v.salesData.PriceListType}" required="{!v.fieldSettings.PriceList.required}"/>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </aura:if>
+            </div>
+            <div class="slds-col slds-border_right">
+                <aura:if isTrue="{! v.fieldSettings.DistributionChannel.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_DistributionChannel}" value="{!v.salesData.DistributionChannel}" name="distributionChannel"
+                            onchange="{!c.onSalesAreaChange}" disabled="{!!v.fieldSettings.DistributionChannel.edit}"  required="{!v.fieldSettings.DistributionChannel.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.distributionChannels}" var="distChannel">
+                                <option selected="{!v.salesData.DistributionChannel == distChannel.DistributionChannel}" value="{!distChannel.DistributionChannel}">{!distChannel.DistributionChannel + ' - ' + distChannel.DistributionChannelName}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.DeliveryPriority.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_DeliveryPriority}" disabled="{!!v.fieldSettings.DeliveryPriority.edit}" value="{!v.salesData.DeliveryPriority}" name="DeliveryPriority"
+                            required="{!v.fieldSettings.DeliveryPriority.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.delPrios}" var="dp">
+                                <option value="{!dp.DeliveryPriority}">{!dp.DeliveryPriority + ' - ' + dp.BEZEI}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.ShippingConditions.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_ShippingConditions}" disabled="{!!v.fieldSettings.ShippingConditions.edit}" value="{!v.salesData.ShippingConditions}"
+                            required="{!v.fieldSettings.ShippingConditions.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.shippingConditions}" var="sc">
+                                <option selected="{!v.salesData.ShippingConditions == sc.ShippingConditions}" value="{!sc.ShippingConditions}">{!sc.ShippingConditions + ' - ' + sc.VTEXT}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.DeliveryPlant.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_DeliveryPlant}" disabled="{!!v.fieldSettings.DeliveryPlant.edit}" value="{!v.salesData.DeliveryPlant}" name="DeliveryPlant"
+                            required="{!v.fieldSettings.DeliveryPlant.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.delPlants}" var="delpl">
+                                <option value="{!delpl.Plant}">{!delpl.Plant + ' - ' + delpl.Name1}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+            </div>
+            <div class="slds-col">
+                <aura:if isTrue="{! v.fieldSettings.Division.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_Division}" disabled="{!!v.fieldSettings.Division.edit}" value="{!v.salesData.Division}" name="division"
+                            required="{!v.fieldSettings.Division.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.divisions}" var="division">
+                                <option selected="{!v.salesData.Division == division.Division}" value="{!division.Division}">{!division.Division + ' - ' + division.DivisionName}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.IncoTerms1.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_IncoTerms1}" disabled="{!!v.fieldSettings.IncoTerms1.edit}" value="{!v.salesData.IncoTerms1}"
+                            required="{!v.fieldSettings.IncoTerms1.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.incoTerms}" var="it">
+                                <option selected="{!v.salesData.IncoTerms1 == it.INCO1}" value="{!it.INCO1}">{!it.INCO1 + ' - ' + it.BEZEI}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.IncoTerms2.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_IncoTerms2}" readonly="{!! v.fieldSettings.IncoTerms2.edit}"
+                            value="{!v.salesData.IncoTerms2}" required="{!v.fieldSettings.IncoTerms2.required}"/>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{! v.fieldSettings.PaymentTerms.display}">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                        <lightning:select label="{!$Label.c.Enosix_Customer_Field_PaymentTerms}" disabled="{!!v.fieldSettings.PaymentTerms.edit}"  value="{!v.salesData.PaymentTerms}"
+                            required="{!v.fieldSettings.PaymentTerms.required}">
+                            <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                            <aura:iteration items="{!v.paymentTerms}" var="pt">
+                                <option selected="{!v.salesData.PaymentTerms == pt.ZTERM}" value="{!pt.ZTERM}">{!pt.ZTERM + ' - ' + pt.VTEXT}</option>
+                            </aura:iteration>
+                        </lightning:select>
+                    </div>
+                </aura:if>
+            </div>   
+        </div>
+    </lightning:card>
+</aura:component>

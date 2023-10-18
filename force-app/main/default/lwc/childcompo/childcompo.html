@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="child component">
+    <p>this is the child component</p>
+    <p>{valuefromthechild}</p>
+    <div>
+        <lightning-progress-bar value={valuebar} size="large"></lightning-progress-bar>
+    </div>
+    </lightning-card>
+    <lightning-card title ="Child">
+        <div>
+            <lightning-button label="Fire the event" onclick={handleclick}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

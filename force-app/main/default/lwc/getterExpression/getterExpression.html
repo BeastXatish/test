@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Data Bindng Dynamically" icon-name="standard:account">
+        <p class= "slds-p-around_medium">
+            Hello {upperCase}
+        </p>
+        <br/>
+        <div class= "slds-p-around_medium">
+            <lightning-input type="text" name="firstname" label="First Name" onchange={handleChange}></lightning-input>
+            <lightning-input type="text" name="lastname" label="Last Name" onchange={handleChange}></lightning-input>
+        </div>
+    </lightning-card>
+</template>

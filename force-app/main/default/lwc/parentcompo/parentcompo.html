@@ -1,0 +1,14 @@
+<template>
+    <c-childcompo valuefromthechild={valueforthechild} valuebar={currentvalueforbar} onbuttonclick = {handlechildevent}></c-childcompo>
+    <div>
+        <lightning-button label="change value" variant="brand" onclick={handleclick}></lightning-button>
+        <p>{valuefortheparent}</p>
+    </div>
+    <div>
+        <lightning-button label="Call method" variant="brand" onclick={handlecall}></lightning-button>
+    </div>
+    <div>
+        <lightning-input type="number" onchange={handlebar}></lightning-input>
+    </div>
+
+</template>

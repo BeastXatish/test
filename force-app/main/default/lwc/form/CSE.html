@@ -1,0 +1,23 @@
+<template>
+    <lightning-card>
+        <div class="slds-m-around_x-small">
+            <lightning-input name = 'firstname' label = 'Enter first name' value ={value} ></lightning-input>
+            <template for:each={questions} for:item="questions">
+                            <lightning-radio-group label ={questions.ques} options={questions.options} type="radio" key={questions.id}>
+                            </lightning-radio-group>
+            </template>
+            <lightning-button label="submit" variant="success" name="submit" onclick={handlesubmit}></lightning-button>
+            &nbsp; &nbsp;
+            <lightning-button label="goback" variant="brand" name="goback" onclick={handlepreviousclickECE}></lightning-button>
+            &nbsp; &nbsp;
+            <lightning-button label="RESET" variant="destructive" name="reset" onclick={handlereset}></lightning-button>
+        </div>
+        <div>
+            <template if:true={istrue}>
+            <p>
+               {value} Your Score is  :- {score} 
+            </p>
+        </template>
+        </div>
+    </lightning-card>
+</template>

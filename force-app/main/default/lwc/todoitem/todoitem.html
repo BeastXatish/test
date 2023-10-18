@@ -1,0 +1,8 @@
+<template>
+    <!-- using the css class and getting the data from java script and in the js defining the containerclass method -->
+    <div class={containerclass}>
+    <span class= "slds-text-heading_label">{todoName}</span>
+                    <lightning-button-icon icon-name ={iconName} class = "slds-p-horizontal_medium" onclick={updatehandler} title="Update Todo"> </lightning-button-icon>
+                    <lightning-button-icon icon-name ="utility:delete" onclick={deletehandler} title="Delete Todo"></lightning-button-icon>
+                </div>
+</template>

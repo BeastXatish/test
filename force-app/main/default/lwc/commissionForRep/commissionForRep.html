@@ -1,0 +1,48 @@
+<template>
+    <div class="slds-box ">
+        <div>
+            <b>SSK Commission Breakout
+            </b>
+        </div>
+        <lightning-datatable
+        data = {showdata}
+        columns= {repdata}
+        key-field="id"
+        >
+
+        </lightning-datatable>
+        <!-- <table class="slds-table slds-var-p-around_x-small"> 
+
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Rep Name">Rep Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Amount">Amount</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Commission Name">Commission Name</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <template for:each={showdata} for:item="comdata">
+                            <div key={comdata}>
+                            <b>
+                                {comdata.repname}
+                            </b>
+                        </div>
+                        </template>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table> -->
+
+    </div>
+
+</template>

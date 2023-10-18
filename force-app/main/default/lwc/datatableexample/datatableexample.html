@@ -1,0 +1,15 @@
+<template>
+    <lightning-card>
+        <div>
+            <!-- data is the property of datatable which holds the value which we are gtting in the js  or all the details of the record and cloumns will hold the columns of the data table in the lwc component where are passing object inside{}-->
+            <lightning-datatable
+                data = {contacts}
+                columns = {columnsforcontact}
+                key-field = "Id"
+                hide-checkbox-column
+                onsave={handlesave}
+            ></lightning-datatable>
+        </div>
+    </lightning-card>
+
+</template>

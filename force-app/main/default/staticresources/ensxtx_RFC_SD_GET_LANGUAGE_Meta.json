@@ -1,0 +1,40 @@
+{
+  "FieldMaps": {
+    "RFC_SD_GET_LANGUAGE.RESULT": {},
+    "RFC_SD_GET_LANGUAGE.ET_LANG": {
+      "LAISO": {
+        "FriendlyName": "LAISO",
+        "TechnicalName": "LAISO",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "SPTXT": {
+        "FriendlyName": "SPTXT",
+        "TechnicalName": "SPTXT",
+        "FieldType": "String",
+        "FieldWidth": 1
+      }
+    }
+  },
+  "StructMap": {},
+  "CollectionMap": {
+    "ET_LANG": {
+      "Name": "ET_LANG",
+      "ItemType": "RFC_SD_GET_LANGUAGE.ET_LANG",
+      "FieldMap": {
+        "LAISO": {
+          "FriendlyName": "LAISO",
+          "TechnicalName": "LAISO",
+          "FieldType": "String",
+          "FieldWidth": 1
+        },
+        "SPTXT": {
+          "FriendlyName": "SPTXT",
+          "TechnicalName": "SPTXT",
+          "FieldType": "String",
+          "FieldWidth": 1
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+<aura:component >
+    <aura:attribute name = "var1" type = "String" default = "Helloo World"/>
+    The Value is :- {!v.var1}
+</aura:component>

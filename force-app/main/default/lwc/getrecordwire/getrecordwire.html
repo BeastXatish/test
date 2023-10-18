@@ -1,0 +1,13 @@
+<template>
+    <lightning-card>
+        <div class= "slds-m-around_medium">
+            Account Name :- {accname}<br>
+            Account Number :- {accno} <br>
+        </div>
+        <template for:each={temp.data} for:item="chilrelationships">
+            <div key ={chilrelationships.childObjectApiName}>
+                {temp}
+            </div>
+        </template>
+    </lightning-card>
+</template>

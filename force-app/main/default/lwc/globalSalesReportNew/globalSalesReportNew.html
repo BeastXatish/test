@@ -1,0 +1,321 @@
+<template>
+    <lightning-record-edit-form record-id={recordId} object-api-name="Global_Sales_Call_Report__c"
+    onsuccess={handleSuccess} onsubmit={handleSubmit}>
+    <lightning-messages></lightning-messages>
+        <template if:true={showDetails}>
+            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={goBack}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate"><template if:false={recordId}> New Global Sales Call Report</template>
+                            <template if:true={recordId}> Edit {recordName}</template></h2>
+                    </header>
+                   
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            
+                <div class="slds-p-top_small slds-p-bottom_small slds-p-right_small slds-text-align_right">
+                    <span style="color: red;">* </span>
+                    <span> = Required Information</span>
+                </div>
+                <div class="slds-p-left_medium">
+                    <lightning-output-field field-name="Name"> </lightning-output-field>
+                </div>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="12" small-device-size="12" large-device-size="6"
+                        medium-device-size="12" padding="around-small">
+                        <lightning-input-field field-name="Reported_By__c" required></lightning-input-field>
+                        <lightning-input-field field-name="Meeting_Date__c" required></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <div style="background-color:#E3E6EF;">
+                    <h1 style="font-size:15px; font-weight:bold;padding: 5px">Customer Information</h1>
+                </div>
+               
+
+                <lightning-layout multiple-rows="true">
+                    
+                    <lightning-layout-item size="12" small-device-size="12" large-device-size="6"
+                    medium-device-size="12" padding="around-small">
+                    <template if:false={recordId}>
+
+                         <lightning-input-field field-name="Account__c" value={accountId}
+                            required></lightning-input-field></template>
+                        
+                        <template if:true={recordId}>  <lightning-input-field field-name="Account__c" 
+                            required></lightning-input-field></template>
+                       
+                        <lightning-input-field field-name="Summary_of_Sales_Call__c" required></lightning-input-field>
+                        <lightning-input-field field-name="Woods_Way_PP_Status__c" required></lightning-input-field>
+                        <lightning-input-field field-name="Product_Categories_Reviewed__c"
+                            required></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <div style="background-color:#E3E6EF;">
+                    <h1 style="font-size:15px; font-weight:bold;padding: 5px">Metrics</h1>
+                </div>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="12" large-device-size="2" >
+                        <div class="slds-p-top_x-large slds-p-left_large">Previous Year</div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="1" > </lightning-layout-item>
+                    <lightning-layout-item size="3" large-device-size="2"  padding="around-small">
+                   <!--    <span style="color: red;">*</span>  --> 
+                        <label>Orders Actual</label>
+                        <lightning-input-field field-name="Previous_Year_Orders_Actual__c"  variant="label-hidden"
+                            ></lightning-input-field>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="1" > </lightning-layout-item>
+                    <lightning-layout-item size="3" large-device-size="2" padding="around-small">
+                      <!--    <span style="color: red;">*</span>  --> 
+                        <label>Shipments Actual</label>
+                        <lightning-input-field  field-name="Previous_Year_Shipments_Actual__c"
+                            variant="label-hidden" ></lightning-input-field>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="1" > </lightning-layout-item>
+                    <lightning-layout-item size="3" large-device-size="2"  padding="around-small">
+                    <!--      <span style="color: red;">*</span>  --> 
+                        <label>Retails Actual</label>
+                        <lightning-input-field field-name="Previous_Year_Retails_Actual__c" variant="label-hidden"
+                            ></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <lightning-layout multiple-rows="true" >
+                    <lightning-layout-item size="12" large-device-size="2">
+                        <div class="slds-p-top_x-large slds-p-left_large">Current Year</div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="5" large-device-size="1"
+                        class="slds-p-right-x_small slds-p-top_small slds-p-bottom_small">
+                        <div>
+                            <label style="color: red;">*</label>
+                            <label>Order Obj</label>
+                            <lightning-input-field field-name="Current_Year_Order_Objective__c" variant="label-hidden"
+                                required></lightning-input-field>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" large-device-size="2" class="slds-p-top_small slds-p-right_medium slds-p-bottom_small slds-p-left_small">
+                        <span style="color: red;">*</span>
+                        <label>Orders Actual</label>
+                        <lightning-input-field field-name="Current_Year_Orders_Actual__c" variant="label-hidden"
+                            required></lightning-input-field>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="5" large-device-size="2" class="slds-p-top_small slds-p-bottom_small slds-p-right-x_small">
+                        <div>
+                            <span style="color: red;">*</span>
+                            <label>Shipments Obj</label>
+                            <lightning-input-field field-name="Current_Year_Shipments_Objective__c"
+                                variant="label-hidden" required></lightning-input-field>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" large-device-size="2" class="slds-p-top_small slds-p-right_medium slds-p-bottom_small slds-p-left_small">
+                        <span style="color: red;">*</span>
+                        <label>Shipments Actual</label>
+                        <lightning-input-field class="slds-form-element" field-name="Current_Year_Shipments_Actual__c"
+                            variant="label-hidden" required></lightning-input-field>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="5" large-device-size="1" class="slds-p-top_small slds-p-right-x_small slds-p-bottom_small">
+                        <div style="display:flex;">
+                            <span style="color: red;">*</span>
+                            <label style="display: inline-block;">Retails Obj</label>
+                        </div>
+                            <lightning-input-field field-name="Current_Year_Retails_Objective__c" variant="label-hidden"
+                                required></lightning-input-field>
+                       
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" large-device-size="2" class="slds-p-top_small slds-p-right_medium slds-p-bottom_small slds-p-left_small">
+                        <span style="color: red;">*</span>
+                        <label>Retails Actual</label>
+                        <lightning-input-field field-name="Current_Year_Retails_Actual__c" variant="label-hidden"
+                            required></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <div style="background-color:#E3E6EF;">
+                    <h1 style="font-size:15px; font-weight:bold;padding: 5px">Inventory</h1>
+                </div>
+
+                <lightning-layout multiple-rows="true" class="slds-p-top_large">
+                    <lightning-layout-item size="12" large-device-size="6" small-device-size="12"
+                        medium-device-size="12" class="slds-p-left_small slds-p-right_small slds-p-bottom_small">
+                        <lightning-input-field field-name="Dealer_Inventory__c" required></lightning-input-field>
+                        <lightning-input-field field-name="Optimal__c"></lightning-input-field>
+                        <lightning-input-field field-name="Audit_Status__c" required></lightning-input-field>
+                        <lightning-input-field field-name="Credit_Status__c" required></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <div style="background-color:#E3E6EF;">
+                    <h1 style="font-size:15px; font-weight:bold;padding:5px">Marketing</h1>
+                </div>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="2" large-device-size="2" medium-device-size="3">
+                        <div class="slds-p-top_x-large slds-p-left_large slds-p-right_small">Co Op</div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="3" large-device-size="2" medium-device-size="3"
+                        class="slds-p-right_small slds-p-top_small slds-p-bottom_small slds-p-left_xx-small">
+                        <span style="color: red;">*</span>
+                        <label for="dollarsUsed">$ Used</label>
+                        <lightning-input-field id="dollarsUsed" field-name="Dollars_Used__c" variant="label-hidden"
+                            required></lightning-input-field>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="4" large-device-size="2" medium-device-size="3" padding="around-small">
+                        <span style="color: red;">*</span>
+                        <label>$ Available</label>
+                        <lightning-input-field id="dollarsAvailable" field-name="Available_Dollars__c"
+                            variant="label-hidden" required></lightning-input-field>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="3" large-device-size="2" padding="around-small">
+                        <span style="color: red;">*</span>
+                        <label for="dollarsTotal">$ Total</label>
+                        <lightning-input-field id="dollarsTotal" field-name="Total_Dollars__c" variant="label-hidden"
+                            required></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <div style="background-color:#E3E6EF;">
+                    <h1 style="font-size:15px; font-weight:bold;padding: 5px">Woods Way Sales Training</h1>
+                </div>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="12" large-device-size="2" medium-device-size="4"
+                        class="slds-p-left_large">
+                        <div class="slds-p-top_x-large">Boot Camp</div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" large-device-size="2" medium-device-size="4" padding="around-small">
+                        <label class="slds-align_absolute-center slds-p-bottom_xx-small">Previous Attended</label>
+                        <lightning-input-field class="slds-align_absolute-center slds-p-bottom_x-small"
+                            field-name="Boot_Camp_Previous_Attended__c" variant="label-hidden"></lightning-input-field>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" large-device-size="2" medium-device-size="4" padding="around-small">
+                        <label>Date</label>
+                        <lightning-input-field field-name="Boot_Camp_Date__c"
+                            variant="label-hidden"></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="12" large-device-size="2" medium-device-size="4"
+                        class="slds-p-left_large">
+                        <div class="slds-p-top_x-large">Boot Camp Activation</div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" large-device-size="2" medium-device-size="4" padding="around-small">
+                        <label class="slds-align_absolute-center slds-p-bottom_xx-small">Previous Attended</label>
+                        <lightning-input-field class="slds-align_absolute-center slds-p-bottom_x-small"
+                            field-name="Boot_Camp_Activation_Previous_Attended__c"
+                            variant="label-hidden"></lightning-input-field>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" large-device-size="2" medium-device-size="4" padding="around-small">
+                        <label>Date</label>
+                        <lightning-input-field field-name="Boot_Camp_Activation_Date__c"
+                            variant="label-hidden"></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="12" large-device-size="2" medium-device-size="4"
+                        class="slds-p-left_large">
+                        <div class="slds-p-top_x-large">Woods Way Wednesdays</div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" large-device-size="2" medium-device-size="4" padding="around-small">
+                        <label class="slds-align_absolute-center slds-p-bottom_xx-small">Previous Attended</label>
+                        <lightning-input-field class="slds-align_absolute-center slds-p-bottom_x-small"
+                            field-name="Woods_Way_Wednesday_Previous_Attended__c"
+                            variant="label-hidden"></lightning-input-field>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" large-device-size="2" medium-device-size="4" padding="around-small">
+                        <label>Date</label>
+                        <lightning-input-field field-name="Woods_Way_Wednesdays_Date__c"
+                            variant="label-hidden"></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <div style="background-color:#E3E6EF;">
+                    <h1 style="font-size:15px; font-weight:bold;padding:5px">Goals</h1>
+                </div>
+
+                <lightning-layout multiple-rows="true" class="slds-p-top_medium slds-p-left_medium">
+                    <lightning-layout-item size="12" large-device-size="6">
+                        <lightning-input-field field-name="Goal_1__c" required></lightning-input-field>
+                        <lightning-input-field field-name="Goal_2__c"></lightning-input-field>
+                        <lightning-input-field field-name="Goal_3__c"></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <lightning-layout multiple-rows="true" class=" slds-p-bottom_small slds-p-left_medium">
+                    <lightning-layout-item size="12" large-device-size="6" >
+                        <lightning-input-field field-name="Opportunities__c" required="true"></lightning-input-field>
+                        <lightning-input-field field-name="Challenges__c" required></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <div style="background-color:#E3E6EF;">
+                    <h1 style="font-size:15px; font-weight:bold;padding:5px">Next Steps</h1>
+                </div>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="4" large-device-size="2" medium-device-size="4"
+                        class="slds-p-left_x-large slds-p-top_large">
+                        <div class="slds-p-left_small">
+                            <span style="color: red;">*</span>
+                            <label>1</label>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="8" large-device-size="4" medium-device-size="8"
+                        class="slds-p-left_small slds-p-top_medium">
+                        <lightning-input-field field-name="Next_Step_1__c" variant="label-hidden"
+                            required></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="4" large-device-size="2" medium-device-size="4"
+                        class="slds-p-left_xx-large slds-p-top_large">
+                        <label>2</label>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="8" large-device-size="4" medium-device-size="8"
+                        class="slds-p-left_small slds-p-top_medium">
+                        <lightning-input-field field-name="Next_Step_2__c"
+                            variant="label-hidden"></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="4" large-device-size="2" medium-device-size="4"
+                        class="slds-p-left_xx-large slds-p-top_large">
+                        <label>3</label>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="8" large-device-size="4" medium-device-size="8"
+                        class="slds-p-left_small slds-p-top_medium">
+                        <lightning-input-field field-name="Next_Step_3__c"
+                            variant="label-hidden"></lightning-input-field>
+                    </lightning-layout-item>
+                </lightning-layout>
+                
+            
+            </div>
+                    <footer class="slds-modal__footer">
+
+                            <lightning-button label="Cancel" variant="neutral" onclick={goBack}></lightning-button>
+                            <lightning-button class="slds-p-left_small" variant="brand" type="submit" name="Create"
+                                label="Save"></lightning-button>
+                        
+                        </footer>
+                  
+               
+                </div>
+</section>
+<div class="slds-backdrop slds-backdrop_open"></div>
+
+        </template>
+    </lightning-record-edit-form>
+</template>

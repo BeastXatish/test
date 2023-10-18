@@ -1,0 +1,25 @@
+<template>
+    <lightning-card>
+        <div class="slds-m-around_x-small">
+            <template for:each={question} for:item="question">
+                <div key={question.id}>
+                    <div>
+                        <strong>
+                            {question.id} :- {question.ques}
+                            <lightning-radio-group name="radioGroup" options={option} type="radio">
+                            </lightning-radio-group>
+
+                        </strong>
+                    </div>
+                </div>
+
+            </template>
+            
+            <lightning-button label="Submit" variant="success"></lightning-button>
+            &nbsp; &nbsp;
+            <lightning-button label="GoBack" variant="destructive" name="GoBack" onclick={handlepreviousclickCSE}>
+            </lightning-button>
+            &nbsp; &nbsp;
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,173 @@
+
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "definitions": {
+        "accountGroups": {
+            "type": "array",
+            "description": "List of Account Groups to show",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "Id": {
+                        "type": "string",
+                        "description": "The Id of the Account Group"
+                    },
+                    "Description": {
+                        "type": "string",
+                        "description": "The description of the Account Group"
+                    }
+                },
+                "required": [
+                    "Id",
+                    "Description"
+                ]
+			}
+        },
+        "languages": {
+            "type": "array",
+            "description": "List of of Languages to show in the dropdown",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "Id": {
+                        "type": "string",
+                        "description": "The Id of the language"
+                    },
+                    "Description": {
+                        "type": "string",
+                        "description": "The description of the language"
+                    }
+                },
+                "required": [
+                    "Id",
+                    "Description"
+                ]
+			}
+        },
+        "defaultFields": {
+            "type": "object",
+            "description": "Object for the fields",
+            "properties": {
+                "Default": {"$ref": "#/definitions/tabFields"},
+                "Create": {"$ref": "#/definitions/tabFields"},
+                "Update": {"$ref": "#/definitions/tabFields"}
+            },
+            "propertyNames": {
+                "enum": ["Default", "Create", "Update"]
+            },
+            "required": [
+                "Default"
+            ]
+        },
+        "tabFields": {
+            "type": "object",
+            "description": "Default fields for different tabs",
+            "properties": {
+                "Header": {
+                    "type": "object",
+                    "description": "Fields for the Header tab",
+                    "patternProperties": {
+                        "^[A-Za-z_][A-Za-z0-9_]*$": {"$ref": "#/definitions/fieldSettings"}
+                    }
+                },
+                "CompanyData": {
+                    "type": "object",
+                    "description": "Fields for the Company Data tab",
+                    "patternProperties": {
+                        "^[A-Za-z_][A-Za-z0-9_]*$": {"$ref": "#/definitions/fieldSettings"}
+                    }
+                },
+                "SalesData": {
+                    "type": "object",
+                    "description": "Fields for the Sales Data tab",
+                    "patternProperties": {
+                        "^[A-Za-z_][A-Za-z0-9_]*$": {"$ref": "#/definitions/fieldSettings"}
+                    }
+                }
+            }
+        },
+        "fieldSettings": {
+            "type": "object",
+            "description": "Field Name",
+            "properties": {
+                "display": {"type": "boolean", "default": true, "description": "Hide/Display the field"},
+                "edit": {"type": "boolean", "default": true, "description": "Field edit/read-only"},
+                "required": {"type": "boolean", "default": false, "description": "Field requirement"}
+            },
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "display": {"const": false}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "edit": {"const": false},
+                            "required": {"const": false}
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "edit": {"const": false}
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "required": {"const": false}
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "type": "object",
+    "patternProperties": {
+        "^[A-Za-z_][A-Za-z0-9_]*$": {
+            "type": "object",
+            "description": "Settings Key",
+            "patternProperties": {
+                "^[A-Za-z_][A-Za-z0-9_]*$": {
+                    "type": "object",
+                    "description": "Settings Type Name",
+                    "properties": {
+                        "showSalesData": {
+                            "type": "boolean",
+                            "description": "Show the Sales Data tab",
+                            "default": true
+                        },
+                        "showCompanyData": {
+                            "type": "boolean",
+                            "description": "Show the Company Data tab",
+                            "default": true
+                        },
+                        "autoInvoke": {
+                            "type": "boolean",
+                            "description": "Auto Create/Update",
+                            "default": false
+                        },
+                        "saveToSObject": {
+                            "type": "boolean",
+                            "description": "Save the values back to the SObject (Account) after Create/Update",
+                            "default": true
+                        },
+                        "accountGroups": {"$ref": "#/definitions/accountGroups"},
+                        "languages": {"$ref": "#/definitions/languages"},
+                        "Fields": {"$ref": "#/definitions/defaultFields"}
+                    },
+                    "required": [
+                        "showSalesData",
+                        "showCompanyData",
+                        "autoInvoke",
+                        "saveToSObject",
+                        "accountGroups",
+                        "languages",
+                        "Fields"
+                    ]
+                }
+            }
+        }
+    }
+}

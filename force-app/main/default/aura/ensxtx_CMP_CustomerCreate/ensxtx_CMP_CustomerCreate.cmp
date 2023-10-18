@@ -1,0 +1,264 @@
+<aura:component  controller="ensxtx_CTRL_CustomerCreate" access="global"
+    implements="force:appHostable,force:hasSObjectName,force:hasRecordId,force:lightningQuickAction,lightning:availableForFlowScreens">
+
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <aura:attribute name="appSettingsName" type="String"/>
+    <aura:attribute name="appSettingsNamespace" type="String"/>
+    <aura:attribute name="appSettingsKey" type="String"/>
+    <aura:attribute name="appSettingsTypeName" type="String"/>
+    <aura:attribute name="appSettings" type="Map"/>
+    <aura:attribute name="fieldSettings" type="Map"/>
+
+    <aura:attribute name="countries" type="List"/>
+    <aura:attribute name="regions" type="List"/>
+    <aura:attribute name="allRegions" type="List"/>
+    <aura:attribute name="salesAreas" type="List"/>
+    <aura:attribute name="groupOffice" type="Map"/>
+    <aura:attribute name="pricingStat" type="Map"/>
+    <aura:attribute name="shipInfo" type="Map"/>
+    <aura:attribute name="currencies" type="List"/>
+    <aura:attribute name="companyCodes" type="List"/>
+    <aura:attribute name="languages" type="List"/>
+    <aura:attribute name="sortKeys" type="List"/>
+    <aura:attribute name="cashMgmtGroups" type="List"/>
+    <aura:attribute name="tolerenceGroups" type="List"/>
+    <aura:attribute name="dunningProcedures" type="List"/>
+    <aura:attribute name="dunningClerks" type="List"/>
+    <aura:attribute name="accountStatements" type="List"/>
+    <aura:attribute name="custGroups" type="List"/>
+    <aura:attribute name="delPrios" type="List"/>
+    <aura:attribute name="delPlants" type="List"/>
+
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="customerNumber" type="String"/>
+    <aura:attribute name="customerDetail" type="ensxtx_DS_Customer_Detail"/>
+    <aura:attribute name="sfObject" type="ensxtx_UTIL_CustomerCreate.SFObject"/>
+    <aura:attribute name="isValidForCreation" type="boolean" default="true"/>
+    <aura:attribute name="isUpdate" type="boolean" default="false"/>
+
+    <aura:attribute name="messages" type="List" default="[]"/>
+    <aura:attribute name="displaySpinner" type="Boolean" default="true"/>
+
+    <aura:handler name="salesAreaChange" event="c:ensxtx_EVT_SalesAreaChange" action="{!c.onSalesAreaChange}"/>
+
+    <lightning:overlayLibrary aura:id="overlayLib1"/>
+
+    <!--The aura:html below is needed in order to force the modal popup to open at a sufficient width -->
+    <aura:html tag="style">
+        .slds-modal__container {
+            height:auto;
+            width: 98%!important;
+            max-width: 120rem!important;
+            max-height : 100vh;
+        }
+        .slds-modal__header {
+            padding:5px;
+            border-bottom-color: transparent;
+        }
+        .slds-card__header {
+            display:none;
+        }
+        .slds-modal__header .slds-card__header {
+            padding-top:5px;
+            margin-bottom:5px;
+            display:none;
+        }
+        .slds-modal__content {
+            padding-top:0;
+        }
+        .slds-card__body_inner {
+            margin-top:0 !important;
+        }
+        .orderEntryInfoModal .slds-modal__container {
+            height:auto;
+            width: 50%!important;
+            max-width: 60rem!important;
+            max-height : 100vh;
+        }
+        .slds-border_right, .slds-border--right {
+            height: 300px !important;
+        }
+    </aura:html>
+   
+    <lightning:card class="cardHeader" aura:id="containerCard">
+        <aura:if isTrue="{!v.displaySpinner}">
+            <lightning:spinner aura:id="displaySpinner" class="slds-spinner_brand"/>
+        </aura:if>
+        <div class="slds-text-heading_medium slds-text-align_center">
+            {!v.sfObject.status + ' SAP ' +  v.sfObject.createType}
+        </div>
+        <div>
+            <c:ensxtx_CMP_Messages messages="{!v.messages}" cssClass="slds-item slds-m-top_x-small slds-text-body_small"/>
+        </div>
+        <lightning:tabset selectedTabId="header">
+            <lightning:tab label="{!$Label.c.Enosix_Customer_Tab_Header}" id="header" accesskey="h">
+                <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_x-small" style="height: 350px;">
+
+                    <div class="slds-col slds-border_right">
+                        <aura:if isTrue="{!v.fieldSettings.Header.CustomerAccountGroup.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:select label="{!$Label.c.Enosix_Customer_Field_CustomerAccountGroup}" value="{!v.customerDetail.CustomerAccountGroup}"
+                                    disabled="{!!v.fieldSettings.Header.CustomerAccountGroup.edit}" required="{!v.fieldSettings.Header.CustomerAccountGroup.required}">
+                                    <aura:iteration items="{!v.appSettings.accountGroups}" var="acctGroup">
+                                        <option value="{!acctGroup.Id}">{!acctGroup.Id + ' - ' + acctGroup.Description}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.CustomerNumber.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" readonly="true" label="{!$Label.c.Enosix_Customer_Field_CustomerNumber}" value="{!v.customerDetail.CustomerNumber}"/>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.Name.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_Name}" value="{!v.customerDetail.Name}"
+                                    readonly="{!!v.fieldSettings.Header.Name.edit}" required="{!v.fieldSettings.Header.Name.required}"/>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.Name2.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_Name2}" value="{!v.customerDetail.Name2}"
+                                    readonly="{!!v.fieldSettings.Header.Name2.edit}" required="{!v.fieldSettings.Header.Name2.required}"/>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.SearchTerm1.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_SearchTerm1}" value="{!v.customerDetail.SearchTerm1}"
+                                    readonly="{!!v.fieldSettings.Header.SearchTerm1.edit}" required="{!v.fieldSettings.Header.SearchTerm1.required}"/>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.Attribute7.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_Attribute7}" value="{!v.customerDetail.Attribute7}"
+                                    readonly="{!!v.fieldSettings.Header.Attribute7.edit}" required="{!v.fieldSettings.Header.Attribute7.required}"/>
+                            </div>
+                        </aura:if>
+                    </div>
+                    <div class="slds-col slds-border_right">
+                        <aura:if isTrue="{!v.fieldSettings.Header.Street.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_StreetAddress}" value="{!v.customerDetail.StreetAddress}"
+                                    readonly="{!!v.fieldSettings.Header.Street.edit}" required="{!v.fieldSettings.Header.Street.required}"/>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.Street2.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_Street2}" value="{!v.customerDetail.Street2}"
+                                    readonly="{!!v.fieldSettings.Header.Street2.edit}" required="{!v.fieldSettings.Header.Street2.required}"/>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.City.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_City}" value="{!v.customerDetail.City}"
+                                    readonly="{!!v.fieldSettings.Header.City.edit}" required="{!v.fieldSettings.Header.City.required}"/>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.Region.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:select label="{!$Label.c.Enosix_Customer_Field_Region}" value="{!v.customerDetail.Region}"
+                                    disabled="{!!v.fieldSettings.Header.Region.edit}" required="{!v.fieldSettings.Header.Region.required}">
+                                    <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                                    <aura:iteration items="{!v.regions}" var="region">
+                                        <option value="{!region.REGIO}">{!region.REGIO + ' - ' + region.BEZEI}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.PostalCode.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_PostalCode}" value="{!v.customerDetail.PostalCode}"
+                                    readonly="{!!v.fieldSettings.Header.PostalCode.edit}" required="{!v.fieldSettings.Header.PostalCode.required}"/>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.Country.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:select label="{!$Label.c.Enosix_Customer_Field_Country}" value="{!v.customerDetail.Country}"
+                                    disabled="{!!v.fieldSettings.Header.Country.edit}" required="{!v.fieldSettings.Header.Country.required}" onchange="{!c.onCountryChange}">
+                                    <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                                    <aura:iteration items="{!v.countries}" var="country">
+                                        <option value="{!country.LAND1}">{!country.LAND1 + ' - ' + country.LANDX}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.TransportationZone.display}">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                            <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_TransportationZone}" value="{!v.customerDetail.TransportationZone}"
+                                readonly="{!!v.fieldSettings.Header.TransportationZone.edit}" required="{!v.fieldSettings.Header.TransportationZone.required}"/>
+                        </div>
+                    </aura:if>
+                    </div>
+                    <div class="slds-col">
+                        <aura:if isTrue="{!v.fieldSettings.Header.Language.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:select label="{!$Label.c.Enosix_Customer_Field_Language}" value="{!v.customerDetail.Language}"
+                                    disabled="{!!v.fieldSettings.Header.Language.edit}" required="{!v.fieldSettings.Header.Language.required}">
+                                    <option value="">{!$Label.c.Enosix_Customer_Option_SelectOne}</option>
+                                    <aura:iteration items="{!v.languages}" var="lang">
+                                    <option value="{!lang.LAISO}">{!lang.LAISO + ' - ' + lang.SPTXT}</option>
+                                </aura:iteration>
+                                </lightning:select>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.PhoneNumber.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_PhoneNumber}" value="{!v.customerDetail.PhoneNumber}"
+                                    readonly="{!!v.fieldSettings.Header.PhoneNumber.edit}"  required="{!v.fieldSettings.Header.PhoneNumber.required}"/>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.EmailAddress.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_EmailAddress}" value="{!v.customerDetail.EmailAddress}"
+                                    readonly="{!!v.fieldSettings.Header.EmailAddress.edit}" required="{!v.fieldSettings.Header.EmailAddress.required}"/>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.fieldSettings.Header.FaxNumber.display}">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                <lightning:input type="text" label="{!$Label.c.Enosix_Customer_Field_FaxNumber}" value="{!v.customerDetail.FaxNumber}"
+                                    readonly="{!!v.fieldSettings.Header.FaxNumber.edit}" required="{!v.fieldSettings.Header.FaxNumber.required}"/>
+                            </div>
+                        </aura:if>
+                    </div>
+                </div>
+            </lightning:tab>
+            <aura:if isTrue="{!v.appSettings.showCompanyData}">
+                <lightning:tab label="{!$Label.c.Enosix_Customer_Tab_CompanyData}" id="companyData" accesskey="c">
+                    <aura:iteration items="{!v.customerDetail.COMPANY_DATA}" var="cmpData">
+                        <div class="dataWrapper">
+                            <c:ensxtx_CMP_CompanyData fieldSettings="{!v.fieldSettings.CompanyData}" companyData="{!cmpData}" shipInfo="{!v.shipInfo}" companyCodes="{!v.companyCodes}"/>
+                        </div>
+                    </aura:iteration>
+                </lightning:tab>
+            </aura:if>
+            <aura:if isTrue="{!v.appSettings.showSalesData}">
+                <lightning:tab label="{!$Label.c.Enosix_Customer_Tab_SalesData}" id="salesData" accesskey="s">
+                    <aura:iteration items="{!v.customerDetail.SALES_DATA}" var="slsData">
+                        <div class="dataWrapper" style="height: 400px;">
+                            <c:ensxtx_CMP_SalesData custGroups="{!v.custGroups}" delPrios="{!v.delPrios}" delPlants="{!v.delPlants}" fieldSettings="{!v.fieldSettings.SalesData}" salesData="{!slsData}" 
+                            salesAreas="{!v.salesAreas}" groupOffice="{!v.groupOffice}" shipInfo="{!v.shipInfo}" pricingStat="{!v.pricingStat}" currencies="{!v.currencies}" appSettings="{!v.appSettings}"/>
+                        </div>
+                    </aura:iteration>
+                </lightning:tab>
+            </aura:if>
+            <aura:if isTrue="{!v.appSettings.showPartnerData}">
+                <lightning:tab label="{!$Label.c.Enosix_Customer_Tab_PartnerData}" id="partnerData" accesskey="p">
+                    <c:ensxtx_CMP_PartnerData partnerData="{!v.customerDetail.PARTNERS}"/>
+                </lightning:tab>
+            </aura:if>
+        </lightning:tabset>
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                <lightning:button label="{!$Label.c.Enosix_Customer_Button_Cancel}" variant="brand" onclick="{!c.onCancelClick}"/>
+                <lightning:button label="{! v.sfObject.status + ' SAP ' + v.sfObject.createType}" variant="brand" onclick="{!c.onCreateClick}" disabled="{!!v.isValidForCreation}"/>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-text-align_right">
+                <div class="logoWrapper">
+                    <c:ensxtx_CMP_EnosixLogo/>
+                </div>
+            </div>
+       </div>
+
+    </lightning:card>
+</aura:component>

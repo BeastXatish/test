@@ -1,0 +1,16 @@
+<template>
+    <lightning-card>
+        <lightning-datatable
+        data= {visiblerecordstoshow}  
+        columns= {column}
+        key-field= "Id"
+        onrowselection = {onSelectedRow}
+        
+        >
+        
+        </lightning-datatable>
+        <div slot="footer" class="slds-var-m-vertical_medium">
+            <c-pagination-child records ={accountsdata} selectedrecord ={selection} onupdate ={updateHandler}></c-pagination-child>
+        </div>
+    </lightning-card>
+</template>

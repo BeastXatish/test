@@ -1,0 +1,15 @@
+<template>  
+    <lightning-quick-action-panel title="Quick Action Title">
+        <div class="slds-p-around-large">
+            <lightning-spinner alternative-text = "Loading" size = "medium" if:true={isSpinner}></lightning-spinner>
+            <lightning-input type="text" label = "Account Name" name = "name" value ={name} variant = "standard" onchange={handlechange}></lightning-input>
+            <lightning-input type="text" label = "Account Phone" name = "phone" value ={phone} variant = "standard" onchange={handlechange}></lightning-input>
+        </div>
+
+        <div slot="footer">
+            <lightning-button variant="destructive" label="Cancel" onclick={closeAction}></lightning-button>
+            &nbsp; &nbsp;
+            <lightning-button variant="brand" label="Save" onclick ={handlesave}></lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+</template>

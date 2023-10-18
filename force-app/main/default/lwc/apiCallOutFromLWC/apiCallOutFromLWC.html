@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title ="Api Call Out">
+        <lightning-input type="number" label="Enter First Number" value={valueOne} onchange={handlefirstInputchange}></lightning-input>
+        <lightning-input type="number" label="Enter Second Number" value ={valueSecond} onchange={handlesecondInputchange}></lightning-input>
+        <lightning-input type="number" label="Divided Result Getting From Api" value ={divideResult} ></lightning-input>
+        <lightning-button variant="Success" label="Calculate" onclick={handleclick}></lightning-button>
+    </lightning-card>
+</template> 

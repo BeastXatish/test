@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="ifelseblock">
+        <lightning-button variant = 'brand' label = {valueholder} onclick = {handleclick}></lightning-button>
+    </lightning-card>
+            <template if:true={gamechanger}>
+                <lightning-card>
+                    <p> SHoWing the details on click of the button</p>
+                </lightning-card>
+            </template>
+
+    <lightning-card title="for each demo">
+        <template if:true={conlist.data}>
+            <template for:each={conlist.data} for:item="contactlist">
+                <h3 key = {contactlist.Id}>
+                    {contactlist.LastName}
+                </h3>
+            </template>
+        </template>
+    </lightning-card>
+</template>

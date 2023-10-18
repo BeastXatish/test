@@ -1,0 +1,41 @@
+<aura:component>
+    
+    <aura:attribute name = "Filetype" type = "List" default="['.png', '.jpg', '.jpeg']" />
+    <aura:attribute name="multiple" type="Boolean" default="true" />
+    <aura:attribute name="disabled" type="Boolean" default="true" />
+    <aura:attribute name="recordId" type="String" default = "0015j00000yp3niAAA"/>
+    <aura:attribute name = "filevar" type = "Integer"/>
+    
+    <lightning:card title="Please Enter the Form details!">
+        <lightning:layout  multipleRows="true">
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input name="input1" label="First Name" pattern="[a-zA-Z]*" messageWhenPatternMismatch= "Please enter a valid value"/>
+            </lightning:layoutItem >
+            <lightning:layoutItem size="6" padding="around-small">
+                <lightning:input name="input2" label="Last Name" pattern="[a-zA-Z]*" messageWhenPatternMismatch= "Please enter a valid value"/>
+            </lightning:layoutItem >
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input name="input3" label="City" />
+            </lightning:layoutItem >
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input name="input4" label="State" />
+            </lightning:layoutItem>
+            <lightning:layoutItem size="4" padding="around-small">
+                <lightning:input name="input5" label="Country" />
+            </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:fileUpload label="Upload file"
+                              name="fileUploader"
+                              multiple="true"
+                              accept="{!v.filetype}"
+                              recordId="{!v.recordId}"
+                              onuploadfinished="{!c.handleUploadFinished}" />
+        
+        <aura:set attribute="footer">
+            <div>
+                <lightning:button variant="Success" label="Submit" title="Click to Submit form" onclick="{!c.handleClick}"/>
+            </div>
+        </aura:set>
+        
+    </lightning:card>
+</aura:component>

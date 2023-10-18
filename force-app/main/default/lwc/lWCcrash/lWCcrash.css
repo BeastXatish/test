@@ -1,0 +1,23 @@
+.container{
+
+    background-color: white;
+    padding: 16px;
+    max-height: 480;
+    overflow-y: scroll;
+    display: block;
+
+}
+.time{
+
+    font-size: 4rem;
+    font-weight: 600;
+
+
+}
+
+.greeting{
+
+    font-size: 2rem; /*rem will depend on current screen width auto pick screen width size and make font smaller or bigger 1rem = 16 pixel*/
+    font-weight: 400; /* use the text bolder  */
+
+}

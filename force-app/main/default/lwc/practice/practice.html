@@ -1,0 +1,62 @@
+<template>
+    <lightning-card title="Car List using for:each">
+        <div>
+            <template for:each={carname} for:item="carlist">
+                <p key={carlist}>
+                    <!-- the tag which is directly following your template we have to speciy a key for that best practice to keep element unique -->
+                    This is the Car List {carlist}
+                </p>
+            </template>
+        </div>
+    </lightning-card>
+    <!--  
+    <lightning-card>
+        <div>
+            <ul class="slds-has-dividers_around-space slds-p-around_medium">
+                <li class="slds-item" (because of this line each item will come in separate box)>Testing 1</li>
+                <li class="slds-item">Testing 2</li>
+                <li class="slds-item">Testing 3</li>
+              </ul>
+        </div>
+    </lightning-card> -->
+    <lightning-card>
+        <div>
+            <!-- <ul class="slds-has-dividers_around-space slds-p-around_medium">
+            <template for:each={person} for:item="persons">
+                <p key = {persons.id}> 
+                     If p tag is not given then output will be in single line but with P tag each element is display on new line </p> 
+                     <li key = {persons.id} class="slds-item">{persons.name}</li>
+            </template>
+        </ul> -->
+
+            <ul class="slds-has-dividers_around-space slds-p-around_medium">
+                <template iterator:person={person}>
+                    <!-- person is an iterator which is a pointer to the array element so need to pick up value from array so in order to get its value we have to type as arrayname.value.arrayelementname -->
+                    <li key={person.value.id} class="slds-item">{person.value.name}</li>
+                </template>
+            </ul>
+        </div>
+    </lightning-card>
+
+    <lightning-card>
+        <div>
+            <ul class="slds-has-dividers_around-space slds-p-around_medium">
+                <template iterator:person={person}>
+                    <li key={person.value.id} class="slds-item">
+                        <div if:true={person.first} style="color: blue;">
+                            {person.value.name}
+                        </div>
+                        <div if:false={person.first} style="color: rgb(208, 0, 0);">
+                            <div if:false={person.last} style="color: rgb(208, 0, 0);">
+                            {person.value.name}
+                            </div>
+                        </div>
+                        <div if:true={person.last} style="color: blue;">
+                            {person.value.name}
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </lightning-card>
+</template>

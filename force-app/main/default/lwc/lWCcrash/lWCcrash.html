@@ -1,0 +1,55 @@
+<template>
+    <!-- using multiple layout item to display time greeting inside the lightning layout and using slds class to align the content in the center using custom class container to change the backgroud color mutiple rows allows to arrange the item one item below another item -->
+    <lightning-layout class="slds-align_absolute-center slds-text-align_center container" multiple-rows>
+        <lightning-layout-item size="12">
+
+            <div class="time">
+                {time}
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="12">
+            <div class="greeting">
+                {greeting}
+            </div>
+        </lightning-layout-item>
+    <lightning-layout-item size="12"> <!-- using size as 12 will get the component occupy full space as the max widht can be 12 only -->
+    <div class= "slds-text-heading_large slds-m-vertical_large">What's your main focus for today?</div>
+    </lightning-layout-item>
+        <!-- we are definign the input box length based on the current device eg mobile and desktop size and also using top margin as large -->
+        <lightning-layout-item size="12" large-device-size="6" medium-device-size="10" small-device-size="12"
+            class="slds-m-top_large">
+          <lightning-layout>   <!-- using nested layout -->
+                <lightning-layout-item size="11">
+                    <!-- if we dont want to see the label for this one use label hidden -->
+                    <lightning-input type="text" label="What's in your mind?" variant="label-hidden"
+                        placeholder="What's in your mind?"></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="1">
+                    <lightning-button-icon icon-name="utility:add" title="Add todo" onclick={addtodohandler}>
+                    </lightning-button-icon>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+        <lightning-layout-item>
+            <div class="slds-m-around_xx-small">UPCOMING</div>
+            <template for:each={upcomingtasks} for:item="todomanagervalues">
+                <!-- <div class="item-class" key ={todomanagervalues.todoId}> -->
+                    <c-todoitem key={todomanagervalues.todoId} todo-id={todomanagervalues.todoId} todo-name ={todomanagervalues.todoName}></c-todoitem>
+                    <!-- <span class= "slds-text-heading_label">{todomanagervalues.todoname}</span>
+                    <lightning-button-icon icon-name ="utility:check" class = "slds-p-horizontal_medium" onclick={updatehandler} title="Update Todo"> </lightning-button-icon>
+                    <lightning-button-icon icon-name ="utility:delete" onclick={deletehandler} title="Delete Todo"></lightning-button-icon> as we were writing the same code again so we have created a child component and implemented that child in the parent with the help of api decorator we are getting the child value and displaying it in the parent-->
+            </template>
+
+
+            <div class="slds-m-around_xx-small">COMPLETED</div>
+            <template for:each={completedtasks} for:item="todocomplete">
+                <c-todoitem key={todocomplete.todoId} todo-id={todocomplete.todoId} todo-name ={todocomplete.todoName} done ></c-todoitem>
+                <!-- <div class="item-class" key ={todomanagervalues.todoId}>
+                    <span class= "slds-text-heading_label">{todomanagervalues.todoname}</span>
+                    <lightning-button-icon icon-name ="utility:check" class = "slds-p-horizontal_medium" onclick={updatehandler} title="Update Todo"> </lightning-button-icon>
+                    <lightning-button-icon icon-name ="utility:delete" onclick={deletehandler} title="Delete Todo"></lightning-button-icon>
+                </div> -->
+            </template>
+        </lightning-layout-item> 
+    </lightning-layout>
+</template>

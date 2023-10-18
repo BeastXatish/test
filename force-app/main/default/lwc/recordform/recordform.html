@@ -1,0 +1,33 @@
+<template>
+
+    <lightning-card title="Record-form with Edit Mode">
+        <lightning-record-form
+        object-api-name={objectapi}
+        columns="2"
+        fields={fields}
+        mode="edit"
+        record-id={recid}
+        >
+        </lightning-record-form>
+    </lightning-card>
+    <lightning-card title="Record-form with View Mode">
+        <lightning-record-form
+        object-api-name={objectapi}
+        columns="2"
+        
+        fields={fields}
+        mode="view"
+        record-id={recid}
+        >
+        </lightning-record-form>
+    </lightning-card>
+
+    <!-- <lightning-card title="Record-form with Default Mode">
+        <lightning-record-form
+        object-api-name={objectapi}
+        columns="2"
+        layout-type="Full" when giving layout-type as full it will include all the fiels of that object
+        >
+        </lightning-record-form>
+    </lightning-card> -->
+</template>

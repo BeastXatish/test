@@ -1,0 +1,11 @@
+<aura:component>
+    <!-- This component is use to display custom label dynamically -->
+    <aura:handler name="init" action="{!c.onInit}" value="{!this}"/>
+    <aura:attribute name="obj" type="Map" default="{}"/>
+    <aura:attribute name="defaultLabel" type="String"/>
+    <aura:attribute name="customLabel" type="String"/>
+    <aura:handler name="change" value="{!v.obj}" action="{!c.handleChange}"/>
+
+    <lightning:formattedText value="{! if(empty(v.customLabel), v.defaultLabel, v.obj.lbl)}"/>
+
+</aura:component>

@@ -1,0 +1,10 @@
+<aura:component >
+    <!-- Attribute is the variable for the childcompo-->
+	<aura:attribute name="childvar" type="String" default = "Hello World"/> 
+    <!-- Here we are displaying the child value using !v. and the variable name which is "View"-->
+    Child Value : {!v.childvar}
+    <br/><br/>
+    <!-- with lightning button we are updating the child variable value-->
+    <lightning:button label = "Update Child var" onclick = "{!c.updateChildvar}"/>
+    <hr/>
+</aura:component>

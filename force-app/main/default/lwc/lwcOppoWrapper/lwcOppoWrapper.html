@@ -1,0 +1,47 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_large">
+            <h3 slot="title" style="font-size:17px;">
+                <lightning-icon icon-name="standard:opportunity" size="small"></lightning-icon> Retrieve records uses of
+                <span style="color: #ff8000;"> </span> in Lightning web components (LWC) [<a
+                    href="https://www.w3web.net/tutorial/salesforce-lwc/" target="_blank" rel="noopener noreferrer">View
+                    more articles →</a>]
+            </h3>
+            <br />
+            <table class="tblColPad" border="1" cellpadding="5" cellspacing="5" style="border-collapse:collapse;">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>StageName</th>
+                        <th>Lead Source</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={oppData.data} for:item="items">
+                        <tr key={items.Id}>
+                            <td>
+                                {items.Name}
+                            </td>
+                            <td>
+                                {items.StageName}
+                            </td>
+                            <td>
+                                {items.LeadSource}
+                            </td>
+                            <td>
+                                {items.Type}
+                            </td>
+                            <td>
+                                {items.Description}
+                            </td>
+
+                        </tr>
+
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </lightning-card>
+</template>

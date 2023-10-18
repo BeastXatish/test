@@ -1,0 +1,30 @@
+<template>
+    <lightning-card title="Current Account Edit"> 
+        <lightning-layout multiple-rows="true">
+            <template for:each={accRecords} for:item="items">
+            <lightning-layout-item size="6" key = {items.Id}>
+                <lightning-input label="AccountName" type="text" value={items.nameWrapper} onchange={handleupdatedvalue}>
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" key = {items.Id}>
+                <lightning-input label="Phone" value={items.phoneWrapper} onchange={handleupdatedvalue}>
+                </lightning-input>
+            </lightning-layout-item>
+        
+            <lightning-layout-item size="6" key = {items.Id}>
+                <lightning-input label="Type" type="text" value={items.typeWrapper}>
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" key = {items.Id}>
+                <lightning-input label="Industry" type="text" value={items.industryWrapper}>
+                </lightning-input>
+            </lightning-layout-item>
+        </template>
+        </lightning-layout>
+        
+    <lightning-button label = "Update" variant="brand" onclick ={handlesave}>
+
+    </lightning-button>
+   
+    </lightning-card>
+</template>

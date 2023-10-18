@@ -1,0 +1,369 @@
+{
+  "FieldMaps": {
+    "RFC_Z_ENSX_GET_DROPDOWN_VALUES.RESULT": {
+      "IV_ACC_STMT": {
+        "FriendlyName": "IV_ACC_STMT",
+        "TechnicalName": "IV_ACC_STMT",
+        "FieldType": "Boolean",
+        "FieldWidth": 1
+      },
+      "IV_BUKRS": {
+        "FriendlyName": "IV_BUKRS",
+        "TechnicalName": "IV_BUKRS",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "IV_CASH_MGT_GRP": {
+        "FriendlyName": "IV_CASH_MGT_GRP",
+        "TechnicalName": "IV_CASH_MGT_GRP",
+        "FieldType": "Boolean",
+        "FieldWidth": 1
+      },
+      "IV_COMP_SORT_KEY": {
+        "FriendlyName": "IV_COMP_SORT_KEY",
+        "TechnicalName": "IV_COMP_SORT_KEY",
+        "FieldType": "Boolean",
+        "FieldWidth": 1
+      },
+      "IV_CUST_GRP": {
+        "FriendlyName": "IV_CUST_GRP",
+        "TechnicalName": "IV_CUST_GRP",
+        "FieldType": "Boolean",
+        "FieldWidth": 1
+      },
+      "IV_DEL_PLANT": {
+        "FriendlyName": "IV_DEL_PLANT",
+        "TechnicalName": "IV_DEL_PLANT",
+        "FieldType": "Boolean",
+        "FieldWidth": 1
+      },
+      "IV_DEL_PRIO": {
+        "FriendlyName": "IV_DEL_PRIO",
+        "TechnicalName": "IV_DEL_PRIO",
+        "FieldType": "Boolean",
+        "FieldWidth": 1
+      },
+      "IV_DUNNING_CLERK": {
+        "FriendlyName": "IV_DUNNING_CLERK",
+        "TechnicalName": "IV_DUNNING_CLERK",
+        "FieldType": "Boolean",
+        "FieldWidth": 1
+      },
+      "IV_DUNNING_PROC": {
+        "FriendlyName": "IV_DUNNING_PROC",
+        "TechnicalName": "IV_DUNNING_PROC",
+        "FieldType": "Boolean",
+        "FieldWidth": 1
+      },
+      "IV_TOLERANCE_GRP": {
+        "FriendlyName": "IV_TOLERANCE_GRP",
+        "TechnicalName": "IV_TOLERANCE_GRP",
+        "FieldType": "Boolean",
+        "FieldWidth": 1
+      },
+      "IV_VKORG": {
+        "FriendlyName": "IV_VKORG",
+        "TechnicalName": "IV_VKORG",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "IV_VTWEG": {
+        "FriendlyName": "IV_VTWEG",
+        "TechnicalName": "IV_VTWEG",
+        "FieldType": "String",
+        "FieldWidth": 1
+      }
+    },
+    "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_ACC_STMT": {
+      "XAUSZ": {
+        "FriendlyName": "XAUSZ",
+        "TechnicalName": "XAUSZ",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "TEXT1": {
+        "FriendlyName": "TEXT1",
+        "TechnicalName": "TEXT1",
+        "FieldType": "String",
+        "FieldWidth": 1
+      }
+    },
+    "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_CASH_MGT_GRP": {
+      "GRUPP": {
+        "FriendlyName": "GRUPP",
+        "TechnicalName": "GRUPP",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "TEXTL": {
+        "FriendlyName": "TEXTL",
+        "TechnicalName": "TEXTL",
+        "FieldType": "String",
+        "FieldWidth": 1
+      }
+    },
+    "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_COMP_SORT_KEY": {
+      "ZUAWA": {
+        "FriendlyName": "ZUAWA",
+        "TechnicalName": "ZUAWA",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "TTEXT": {
+        "FriendlyName": "TTEXT",
+        "TechnicalName": "TTEXT",
+        "FieldType": "String",
+        "FieldWidth": 1
+      }
+    },
+    "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_CUST_GRP": {
+      "KDGRP": {
+        "FriendlyName": "KDGRP",
+        "TechnicalName": "KDGRP",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "KTEXT": {
+        "FriendlyName": "KTEXT",
+        "TechnicalName": "KTEXT",
+        "FieldType": "String",
+        "FieldWidth": 1
+      }
+    },
+    "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_DEL_PLANT": {
+      "Plant": {
+        "FriendlyName": "Plant",
+        "TechnicalName": "WERKS",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "Name1": {
+        "FriendlyName": "Name1",
+        "TechnicalName": "NAME1",
+        "FieldType": "String",
+        "FieldWidth": 1
+      }
+    },
+    "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_DEL_PRIO": {
+      "DeliveryPriority": {
+        "FriendlyName": "DeliveryPriority",
+        "TechnicalName": "LPRIO",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "BEZEI": {
+        "FriendlyName": "BEZEI",
+        "TechnicalName": "BEZEI",
+        "FieldType": "String",
+        "FieldWidth": 1
+      }
+    },
+    "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_DUNNING_CLERK": {
+      "BUSAB": {
+        "FriendlyName": "BUSAB",
+        "TechnicalName": "BUSAB",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "SNAME": {
+        "FriendlyName": "SNAME",
+        "TechnicalName": "SNAME",
+        "FieldType": "String",
+        "FieldWidth": 1
+      }
+    },
+    "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_DUNNING_PROC": {
+      "MAHNA": {
+        "FriendlyName": "MAHNA",
+        "TechnicalName": "MAHNA",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "TEXTM": {
+        "FriendlyName": "TEXTM",
+        "TechnicalName": "TEXTM",
+        "FieldType": "String",
+        "FieldWidth": 1
+      }
+    },
+    "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_TOLERANCE_GRP": {
+      "TOGRU": {
+        "FriendlyName": "TOGRU",
+        "TechnicalName": "TOGRU",
+        "FieldType": "String",
+        "FieldWidth": 1
+      },
+      "TXT30": {
+        "FriendlyName": "TXT30",
+        "TechnicalName": "TXT30",
+        "FieldType": "String",
+        "FieldWidth": 1
+      }
+    }
+  },
+  "StructMap": {},
+  "CollectionMap": {
+    "ET_ACC_STMT": {
+      "Name": "ET_ACC_STMT",
+      "ItemType": "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_ACC_STMT",
+      "FieldMap": {
+        "XAUSZ": {
+          "FriendlyName": "XAUSZ",
+          "TechnicalName": "XAUSZ",
+          "FieldType": "String",
+          "FieldWidth": 1
+        },
+        "TEXT1": {
+          "FriendlyName": "TEXT1",
+          "TechnicalName": "TEXT1",
+          "FieldType": "String",
+          "FieldWidth": 1
+        }
+      }
+    },
+    "ET_CASH_MGT_GRP": {
+      "Name": "ET_CASH_MGT_GRP",
+      "ItemType": "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_CASH_MGT_GRP",
+      "FieldMap": {
+        "GRUPP": {
+          "FriendlyName": "GRUPP",
+          "TechnicalName": "GRUPP",
+          "FieldType": "String",
+          "FieldWidth": 1
+        },
+        "TEXTL": {
+          "FriendlyName": "TEXTL",
+          "TechnicalName": "TEXTL",
+          "FieldType": "String",
+          "FieldWidth": 1
+        }
+      }
+    },
+    "ET_COMP_SORT_KEY": {
+      "Name": "ET_COMP_SORT_KEY",
+      "ItemType": "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_COMP_SORT_KEY",
+      "FieldMap": {
+        "ZUAWA": {
+          "FriendlyName": "ZUAWA",
+          "TechnicalName": "ZUAWA",
+          "FieldType": "String",
+          "FieldWidth": 1
+        },
+        "TTEXT": {
+          "FriendlyName": "TTEXT",
+          "TechnicalName": "TTEXT",
+          "FieldType": "String",
+          "FieldWidth": 1
+        }
+      }
+    },
+    "ET_CUST_GRP": {
+      "Name": "ET_CUST_GRP",
+      "ItemType": "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_CUST_GRP",
+      "FieldMap": {
+        "KDGRP": {
+          "FriendlyName": "KDGRP",
+          "TechnicalName": "KDGRP",
+          "FieldType": "String",
+          "FieldWidth": 1
+        },
+        "KTEXT": {
+          "FriendlyName": "KTEXT",
+          "TechnicalName": "KTEXT",
+          "FieldType": "String",
+          "FieldWidth": 1
+        }
+      }
+    },
+    "ET_DEL_PLANT": {
+      "Name": "ET_DEL_PLANT",
+      "ItemType": "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_DEL_PLANT",
+      "FieldMap": {
+        "Plant": {
+          "FriendlyName": "Plant",
+          "TechnicalName": "WERKS",
+          "FieldType": "String",
+          "FieldWidth": 1
+        },
+        "Name1": {
+          "FriendlyName": "Name1",
+          "TechnicalName": "NAME1",
+          "FieldType": "String",
+          "FieldWidth": 1
+        }
+      }
+    },
+    "ET_DEL_PRIO": {
+      "Name": "ET_DEL_PRIO",
+      "ItemType": "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_DEL_PRIO",
+      "FieldMap": {
+        "DeliveryPriority": {
+          "FriendlyName": "DeliveryPriority",
+          "TechnicalName": "LPRIO",
+          "FieldType": "String",
+          "FieldWidth": 1
+        },
+        "BEZEI": {
+          "FriendlyName": "BEZEI",
+          "TechnicalName": "BEZEI",
+          "FieldType": "String",
+          "FieldWidth": 1
+        }
+      }
+    },
+    "ET_DUNNING_CLERK": {
+      "Name": "ET_DUNNING_CLERK",
+      "ItemType": "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_DUNNING_CLERK",
+      "FieldMap": {
+        "BUSAB": {
+          "FriendlyName": "BUSAB",
+          "TechnicalName": "BUSAB",
+          "FieldType": "String",
+          "FieldWidth": 1
+        },
+        "SNAME": {
+          "FriendlyName": "SNAME",
+          "TechnicalName": "SNAME",
+          "FieldType": "String",
+          "FieldWidth": 1
+        }
+      }
+    },
+    "ET_DUNNING_PROC": {
+      "Name": "ET_DUNNING_PROC",
+      "ItemType": "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_DUNNING_PROC",
+      "FieldMap": {
+        "MAHNA": {
+          "FriendlyName": "MAHNA",
+          "TechnicalName": "MAHNA",
+          "FieldType": "String",
+          "FieldWidth": 1
+        },
+        "TEXTM": {
+          "FriendlyName": "TEXTM",
+          "TechnicalName": "TEXTM",
+          "FieldType": "String",
+          "FieldWidth": 1
+        }
+      }
+    },
+    "ET_TOLERANCE_GRP": {
+      "Name": "ET_TOLERANCE_GRP",
+      "ItemType": "RFC_Z_ENSX_GET_DROPDOWN_VALUES.ET_TOLERANCE_GRP",
+      "FieldMap": {
+        "TOGRU": {
+          "FriendlyName": "TOGRU",
+          "TechnicalName": "TOGRU",
+          "FieldType": "String",
+          "FieldWidth": 1
+        },
+        "TXT30": {
+          "FriendlyName": "TXT30",
+          "TechnicalName": "TXT30",
+          "FieldType": "String",
+          "FieldWidth": 1
+        }
+      }
+    }
+  }
+}

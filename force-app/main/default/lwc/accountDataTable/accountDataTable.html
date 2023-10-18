@@ -1,0 +1,9 @@
+<template>
+    <div>
+        <lightning-datatable data={accountData} columns={columnsData} key-field="Id" onsave={handlesave}>
+        </lightning-datatable>
+        <div>
+            <lightning-button label="My Button" onclick={handleConfirmClick}></lightning-button>
+        </div>
+    </div>
+</template>

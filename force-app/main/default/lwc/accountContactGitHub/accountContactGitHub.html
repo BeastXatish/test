@@ -1,0 +1,42 @@
+<template>
+  <lightning-card title="Account AND Contact Updation">
+    <lightning-layout multiple-rows="true">
+      <lightning-layout-item size ="6" padding="around-small">
+        <lightning-record-edit-form object-api-name="Account" data-id="accountForm" record-id={recordId}>
+          <lightning-messages> </lightning-messages>
+          <lightning-input-field field-name="Name"></lightning-input-field>
+        </lightning-record-edit-form>
+      </lightning-layout-item>
+
+      <lightning-layout-item size = "6" padding="around-small">
+        <!-- Contact 1 -->
+        <template if:true={contacts}>
+          <template for:each={contacts} for:item="contact">
+            <div key={contact}>
+              <lightning-record-edit-form record-id={contact} object-api-name="Contact" data-id="contactForm"
+                ><lightning-layout-item size = "6" padding="around-small"></lightning-layout-item>
+                <lightning-input-field field-name="LastName" data-id="contactForm"></lightning-input-field>
+                <lightning-input-field field-name="Phone" data-id="contactForm"></lightning-input-field>
+
+              </lightning-record-edit-form>
+            </div>
+          </template>
+        </template>
+      </lightning-layout-item>
+    </lightning-layout>
+
+  <lightning-layout>
+      <lightning-layout-item size = "6" padding="around-small">
+        <div class="slds-p-around_small slds-align_absolute-center">
+          <lightning-button type="button" variant="brand" onclick={handleSave} label="Save"></lightning-button>
+        </div>
+      </lightning-layout-item>
+        <lightning-layout-item size = "6" padding="around-small">
+        <div class="slds-p-around_small slds-align_absolute-center">
+          <lightning-button type="button" variant="neutral" onclick={handleReset} label="Reset">
+          </lightning-button>
+        </div>      
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-card>
+</template>

@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="trainer Details" icon-name="standard:people">
+        <div class= "slds-var-m-around_medium" >
+            <template if:true={pokemons.data}>
+            <lightning-record-form
+            object-api-name = "Contact"
+            record-id ={recordId}
+            layout-type="Compact">
+            </lightning-record-form>
+        </template>
+        </div>
+        <template if:true={pokemons.error}>
+            <div>
+                Error Loading the trainer details.
+            </div>
+        </template>
+    </lightning-card>
+</template>

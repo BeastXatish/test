@@ -1,0 +1,31 @@
+<template>
+    <lightning-card>
+        <div class="slds-m-left_small slds-align_absolute-center">
+        <p>
+            
+            Hello {textBoxValue} {lastname} !
+        </p> <br/>
+        <p> {accountName.data} </p> 
+        <!-- .data if not written then it will be in object form data is the key as data is coming in JSON format -->
+    </div>
+        <!-- onchange is an event for input field if remove on change then by clicking the button data will display on the screen -->
+
+        <lightning-layout>
+            <lightning-layout-item size="6" padding="around-small">
+        <div class="slds-m-left_small slds-m-right_x-small">
+            <lightning-input  label="First Name" value={textBoxValue} name="inputfirstname"></lightning-input>
+        </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="6" padding="around-small">
+        <div class="slds-m-left_small slds-m-right_x-small ">
+            <lightning-input label="Last Name" value={lastname} name="inputlastname"></lightning-input>
+        </div>
+    </lightning-layout-item>
+        </lightning-layout>
+        <div class="slds-clearfix">
+            <div class="slds-m-left_small slds-m-right_x-small slds-m-top_x-small slds-float_right">
+                <lightning-button label="Send data" onclick={changeHandler}></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>
